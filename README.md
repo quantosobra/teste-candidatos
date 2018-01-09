@@ -21,21 +21,21 @@ O projeto é organizado em dois diretórios:
 Antes de poder executar o projeto, é necessário instalar as dependências. Para o frontend, é utilizado o NPM, e para o
 backend é usado o Composer. Para instalar as dependências dos dois projetos, execute os seguintes comandos:
 
-`docker-compose run --rm backend composer install`
-`docker-compose run --rm frontend npm install`
+* `docker-compose run --rm backend composer install`
+* `docker-compose run --rm frontend npm install`
 
 ## Executando
 
 Você pode executar o projeto utilizando o docker-compose para iniciar os containers para frontend, backend e o banco de
 dados MySQL:
 
-`docker-compose up -d`
+* `docker-compose up -d`
 
 Esse comando irá iniciar todos os serviços e deixá-los executando em plano de fundo. Na primeira vez que o projeto for
 executado será necessário criar as tabelas no banco de dados. Para isso, após ter iniciado os serviços com o comando
 anterior, execute o seguinte comando:
 
-`docker-compose exec backend app/console doctrine:schema:update --force`
+* `docker-compose exec backend app/console doctrine:schema:update --force`
 
 
 [vagas]: https://quantosobra.recruiterbox.com/ "Vagas no QuantoSobra"
