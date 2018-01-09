@@ -2,9 +2,9 @@
 
 namespace App\AppBundle\Controller;
 
-use FOS\RestBundle\Controller\FOSRestController;
 use App\AppBundle\Entity\Empresa;
 use App\AppBundle\Form\EmpresaType;
+use FOS\RestBundle\Controller\FOSRestController;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -78,7 +78,7 @@ class EmpresaController extends FOSRestController
     {
         $entity = new Empresa();
 
-        // Formulários podem ser usados para gerar o HTML dos forms, mais isso não é usado na API.
+        // Formulários podem ser usados para gerar o HTML dos forms, mas isso não é usado na API.
         // Aqui são usados apenas para a validação dos dados.
         $form = $this->createForm(new EmpresaType(), $entity);
         $form->bind($request->get('empresa'));
@@ -126,6 +126,7 @@ class EmpresaController extends FOSRestController
 
     /**
      * Delete action
+     *
      * @param int $id Id of the entity
      * @return View
      *
