@@ -1,0 +1,7 @@
+empresa:
+    type: rest
+    resource: App\AppBundle\Controller\EmpresaController
+
+cliente:
+    type: rest
+    resource: App\AppBundle\Controller\ClienteController

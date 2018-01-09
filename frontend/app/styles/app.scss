@@ -1,0 +1,21 @@
+@import 'variables';
+@import "ember-bootstrap/bootstrap";
+
+textarea {
+    resize: vertical;
+    max-width: 100%;
+    min-width: 100%;
+}
+
+.panel-heading {
+    a, .btn {
+        background: transparent;
+        border: none;
+        color: #fff;
+    }
+}
+
+.navbar .navbar-brand img {
+	max-height: $line-height-computed;
+	float: left;
+}

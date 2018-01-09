@@ -1,0 +1,42 @@
+<div class="panel panel-info">
+    <div class="panel-heading">
+        <h2>
+            <i class="fa fa-user"></i>
+            Clientes
+            <span class="pull-right">
+                {{#link-to 'clientes.novo'}}<i class="fa fa-plus"></i>{{/link-to}}
+            </span>
+        </h2>
+    </div>
+    <div class="panel-body">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Telefone</th>
+                    <th>E-mail</th>
+                    <th>Endereço</th>
+                    <th class="actions"></th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each model as |cliente|}}
+                <tr>
+                    <td>{{cliente.nome}}</td>
+                    <td>{{cliente.telefone}}</td>
+                    <td>{{cliente.email}}</td>
+                    <td>{{cliente.endereco}}</td>
+                    <td>
+                        {{#link-to 'clientes.editar' cliente.id class='btn btn-sm btn-default' active=false}}<i class="fa fa-pencil"></i>{{/link-to}}
+                        <button {{action 'remove' cliente}} class='btn btn-sm btn-danger' active=false}}><i class="fa fa-times"></i></button>
+                    </td>
+                </tr>
+                {{else}}
+                <tr class="empty text-center">
+                    <td colspan="5">Nenhum cliente foi encontrado.</td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+</div>

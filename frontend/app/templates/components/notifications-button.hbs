@@ -1,0 +1,17 @@
+{{#bs-dropdown tagName="li" as |dd|}}
+    {{#dd.toggle}}
+        <i class="fa fa-bell-o"></i>
+        <span class="badge">{{notifications.messages.length}}</span>
+    {{/dd.toggle}}
+    {{#dd.menu as |menu|}}
+        {{#each notifications.messages as |entry|}}
+            {{#menu.item}}
+                {{notifications-entry entry=entry}}
+            {{/menu.item}}
+        {{else}}
+            {{#menu.item}}
+                <a href="javascript:void(0);">Nenhuma notificação!</a>
+            {{/menu.item}}
+        {{/each}}
+    {{/dd.menu}}
+{{/bs-dropdown}}

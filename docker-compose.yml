@@ -1,0 +1,45 @@
+# +-----------------+-------+
+# | Serviço         | Porta |
+# +-----------------+-------+
+# | Ember Frontend  |  4200 |
+# | API Backend     |  8000 |
+# | MySQL           |  3306 |
+# +-----------------+-------+
+
+version: "3.4"
+services:
+  frontend:
+    image: danlynn/ember-cli:2.16.2-node_8.7
+    volumes:
+      - $PWD/frontend:/myapp
+    command: ember serve
+    ports:
+      - "4200:4200"
+      - "5779:5779"
+      - "7020:7020"
+
+  backend:
+    image: webdevops/php-apache-dev:alpine-php7
+    volumes:
+      - $PWD/backend:/app
+    working_dir: /app
+    ports:
+      - "8000:8000"
+    links:
+      - mysql
+    command: ["app/console", "server:run", "0.0.0.0:8000"]
+
+  mysql:
+    image: mysql:5.7
+    volumes:
+      - database:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_USER=quantosobra
+      - MYSQL_PASSWORD=quantosobra
+      - MYSQL_DATABASE=quantosobra
+
+volumes:
+  database:
