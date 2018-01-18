@@ -3,6 +3,7 @@
 namespace App\AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Venda
@@ -24,14 +25,28 @@ class Venda
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="data", type="datetime")
+     * @ORM\Column(name="dataCompra", type="datetime")
+     * 
+     * @Assert\NotBlank(
+     *     message = "O preenchimento da data da compra é obrigatório.",
+     * )
+     * 
+     * @Assert\DateTime(
+     *     message = "Data inválida."
+     * )
+     * 
      */
-    private $data;
+    private $dataCompra;
 
     /**
      * @var string
      *
      * @ORM\Column(name="valor", type="decimal")
+     * 
+     * @Assert\NotBlank(
+     *     message = "O preenchimento do valor é obrigatório.",
+     * )
+     * 
      */
     private $valor;
 
@@ -39,6 +54,11 @@ class Venda
      * @var string
      *
      * @ORM\Column(name="comissao", type="decimal")
+     * 
+     * @Assert\NotBlank(
+     *     message = "O preenchimento da comissão é obrigatório.",
+     * )
+     * 
      */
     private $comissao;
 
@@ -47,6 +67,11 @@ class Venda
      *
      * @ORM\ManyToOne(targetEntity="Empresa", inversedBy="vendas")
      * @ORM\JoinColumn(name="empresa_id", referencedColumnName="id")
+     * 
+     * @Assert\NotBlank(
+     *     message = "Uma empresa deve ser selecionada.",
+     * )
+     * 
      */
     private $empresa;
 
@@ -55,6 +80,11 @@ class Venda
      *
      * @ORM\ManyToOne(targetEntity="Cliente", inversedBy="compras")
      * @ORM\JoinColumn(name="cliente_id", referencedColumnName="id")
+     * 
+     * @Assert\NotBlank(
+     *     message = "Um cliente deve ser selecionado.",
+     * )
+     * 
      */
     private $cliente;
 
@@ -70,27 +100,27 @@ class Venda
     }
 
     /**
-     * Set data
+     * Set dataCompra
      *
-     * @param \DateTime $data
+     * @param \DateTime $dataCompra
      *
      * @return Venda
      */
-    public function setData($data)
+    public function setDataCompra($dataCompra)
     {
-        $this->data = $data;
+        $this->dataCompra = $dataCompra;
 
         return $this;
     }
 
     /**
-     * Get data
+     * Get dataCompra
      *
      * @return \DateTime
      */
-    public function getData()
+    public function getDataCompra()
     {
-        return $this->data;
+        return $this->dataCompra;
     }
 
     /**
@@ -139,5 +169,54 @@ class Venda
     public function getComissao()
     {
         return $this->comissao;
+    }
+
+
+    /**
+     * Set empresa
+     *
+     * @param string $empresa
+     *
+     * @return Venda
+     */
+    public function setEmpresa($empresa)
+    {
+        $this->empresa = $empresa;
+
+        return $this;
+    }
+
+    /**
+     * Get empresa
+     *
+     * @return string
+     */
+    public function getEmpresa()
+    {
+        return $this->empresa;
+    }
+
+    /**
+     * Set cliente
+     *
+     * @param string $cliente
+     *
+     * @return Venda
+     */
+    public function setCliente($cliente)
+    {
+        $this->cliente = $cliente;
+
+        return $this;
+    }
+
+    /**
+     * Get cliente
+     *
+     * @return string
+     */
+    public function getCliente()
+    {
+        return $this->cliente;
     }
 }

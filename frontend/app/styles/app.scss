@@ -1,5 +1,6 @@
 @import 'variables';
 @import "ember-bootstrap/bootstrap";
+@import "ember-power-select";
 
 textarea {
     resize: vertical;
@@ -19,3 +20,4 @@ textarea {
 	max-height: $line-height-computed;
 	float: left;
 }
+

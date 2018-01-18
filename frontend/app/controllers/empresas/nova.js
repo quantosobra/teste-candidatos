@@ -7,8 +7,10 @@ export default Controller.extend({
     actions: {
         submit() {
             this.get('model').save().then(() => {
-                this.get('notifications').add('Empresa foi criada', 'building');
+                this.get('notifications').add(`Empresa "${this.get('model').get('nome')}" foi criada`, 'building');
                 this.transitionToRoute('empresas');
+            }).catch((e) => {
+                this.setProperties({ serverErrors: e.errors.children })
             });
         }
     }

@@ -2,100 +2,100 @@
 
 namespace App\AppBundle\Controller;
 
-use App\AppBundle\Entity\Empresa;
-use App\AppBundle\Form\EmpresaType;
+use App\AppBundle\Entity\Venda;
+use App\AppBundle\Form\VendaType;
 use App\AppBundle\Utils\FormUtils;
 use FOS\RestBundle\Controller\FOSRestController;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class EmpresaController extends FOSRestController
+class VendaController extends FOSRestController
 {
     /**
-     * Retorna uma lista com todos as empresas cadastradas no sistema, ordenadas alfabeticamente.
+     * Retorna uma lista com todos as vendas cadastrados no sistema, ordenados alfabeticamente.
      *
      * @return View
      *
      * @ApiDoc(
-     *   section = "Empresas",
+     *   section = "Vendas",
      *   resource = true,
-     *   description = "Retorna a lista de empresas",
-     *   output = "array<App\AppBundle\Form\EmpresaType>",
+     *   description = "Retorna a lista de vendas",
+     *   output = "array<App\AppBundle\Form\VendaType>",
      *   statusCodes = {
      *     Response::HTTP_OK = "Retornado em caso de sucesso"
      *   }
      * )
      */
-    public function getEmpresasAction()
+    public function getVendasAction()
     {
-        $entities = $this->getDoctrine()->getRepository('AppBundle:Empresa')->findBy([], ['nome' => 'ASC']);
-        return $this->view(['empresas' => $entities], Response::HTTP_OK);
+        $entities = $this->getDoctrine()->getRepository('AppBundle:Venda')->findBy([], ['dataCompra' => 'ASC']);
+        return $this->view(['vendas' => $entities], Response::HTTP_OK);
     }
 
     /**
-     * Retorna as informações detalhadas de uma empresa cadastrada no sistema.
+     * Retorna as informações detalhadas de uma venda cadastrado no sistema.
      *
      * #### Markdown
      *
      * Pode ser utilizado [markdown](http://lmgtfy.com/?q=Markdown+Syntax&l=1) para escrever a documentação.
      *
      *
-     * @param int $id ID da empresa para buscar.
+     * @param int $id ID da venda para buscar.
      * @return View
      *
      * @ApiDoc(
-     *   section = "Empresas",
-     *   description = "Retorna os dados de uma empresa",
-     *   output = "App\AppBundle\Form\EmpresaType",
+     *   section = "Vendas",
+     *   description = "Retorna os dados de uma venda",
+     *   output = "App\AppBundle\Form\VendaType",
      *   statusCodes = {
      *     Response::HTTP_OK = "Retornado em caso de sucesso",
-     *     Response::HTTP_NOT_FOUND = "Se a empresa informada não existe"
+     *     Response::HTTP_NOT_FOUND = "Se a venda informada não existe"
      *   }
      * )
      */
-    public function getEmpresaAction($id)
+    public function getVendaAction($id)
     {
         $entity = $this->getEntity($id);
-        return $this->view(['empresa' => $entity], Response::HTTP_OK);
+        return $this->view(['vendas' => $entity], Response::HTTP_OK);
     }
 
     /**
-     * Cria uma nova empresa.
+     * Cria uma nova venda.
      *
      * @param Request $request
      * @return View
      *
      * @ApiDoc(
-     *   section = "Empresas",
-     *   description = "Cria uma empresa",
-     *   input = "App\AppBundle\Form\EmpresaType",
+     *   section = "Vendas",
+     *   description = "Cria uma nova venda",
+     *   input = "App\AppBundle\Form\VendaType",
      *   statusCodes = {
      *     Response::HTTP_OK = "Retornado em caso de sucesso"
      *   }
      * )
      */
-    public function postEmpresaAction(Request $request)
+    public function postVendaAction(Request $request)
     {
-        $entity = new Empresa();
+        $entity = new Venda();
 
-        // Formulários podem ser usados para gerar o HTML dos forms, mas isso não é usado na API.
-        // Aqui são usados apenas para a validação dos dados.
-        $form = $this->createForm(new EmpresaType(), $entity);
-        $form->bind($request->get('empresa'));
+        $venda = $request->get('venda');
         
+        $form = $this->createForm(new VendaType(), $entity);
+        $form->bind($request->get('venda'));
+
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
-            return $this->view(['empresa' => $entity], Response::HTTP_OK);
+            return $this->view(['venda' => $entity], Response::HTTP_OK);
         } else {
             return $this->view(['errors' => $form->getErrors()->getForm()], Response::HTTP_BAD_REQUEST);
         }
     }
 
     /**
-     * Cria ou edita uma empresa com o ID especificado.
+     * Cria ou edita uma venda com o ID especificado.
      *
      * Mais detalhes seguem aqui sobre o funcionamento do método.
      *
@@ -104,26 +104,27 @@ class EmpresaController extends FOSRestController
      * @return View
      *
      * @ApiDoc(
-     *   section = "Empresas",
-     *   description = "Edita uma empresa",
-     *   input = "App\AppBundle\Form\EmpresaType",
+     *   section = "Vendas",
+     *   description = "Edita uma venda",
+     *   input = "App\AppBundle\Form\VendaType",
      *   statusCodes = {
      *     Response::HTTP_OK = "Retornado em caso de sucesso",
-     *     Response::HTTP_NOT_FOUND = "Se a empresa informada não existe"
+     *     Response::HTTP_NOT_FOUND = "Se a venda informado não existe"
      *   }
      * )
      */
-    public function putEmpresaAction(Request $request, $id)
+    public function putVendaAction(Request $request, $id)
     {
         $entity = $this->getEntity($id);
-        $form = $this->createForm(new EmpresaType(), $entity);
-        $form->bind($request->get('empresa'));
+        
+        $form = $this->createForm(new VendaType(), $entity);
+        $form->bind($request->get('venda'));
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($entity);
             $em->flush();
-            return $this->view(['empresa' => $entity], Response::HTTP_OK);
+            return $this->view(['venda' => $entity], Response::HTTP_OK);
         } else {
             return $this->view(['errors' => $form->getErrors()->getForm()], Response::HTTP_BAD_REQUEST);
         }
@@ -131,20 +132,20 @@ class EmpresaController extends FOSRestController
 
     /**
      * Delete action
-     *
+    *
      * @param int $id Id of the entity
      * @return View
      *
      * @ApiDoc(
-     *   section = "Empresas",
-     *   description = "Exclui uma empresa",
+     *   section = "Vendas",
+     *   description = "Exclui uma venda",
      *   statusCodes = {
      *     Response::HTTP_NO_CONTENT = "Retornado em caso de sucesso",
-     *     Response::HTTP_NOT_FOUND = "Se a empresa informada não existe"
+     *     Response::HTTP_NOT_FOUND = "Se a venda informado não existe"
      *   }
      * )
      */
-    public function deleteEmpresaAction($id)
+    public function deleteVendaAction($id)
     {
         $entity = $this->getEntity($id);
         $em = $this->getDoctrine()->getManager();
@@ -157,15 +158,15 @@ class EmpresaController extends FOSRestController
      * Get entity instance
      *
      * @param int $id Id of the entity
-     * @return Empresa
+     * @return Venda
      */
     protected function getEntity($id)
     {
         $em = $this->getDoctrine()->getManager();
-        $entity = $em->getRepository('AppBundle:Empresa')->find($id);
+        $entity = $em->getRepository('AppBundle:Venda')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Essa empresa não existe.');
+            throw $this->createNotFoundException('Essa venda não existe.');
         }
 
         return $entity;

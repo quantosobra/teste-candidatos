@@ -21,6 +21,7 @@ class AppKernel extends Kernel
             new Nelmio\ApiDocBundle\NelmioApiDocBundle(),
             new Nelmio\CorsBundle\NelmioCorsBundle(),
             new App\AppBundle\AppBundle(),
+            new Misd\PhoneNumberBundle\MisdPhoneNumberBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
