@@ -4,6 +4,8 @@ namespace App\AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
+use Misd\PhoneNumberBundle\Validator\Constraints as MisdAssert;
 
 /**
  * Empresa
@@ -26,6 +28,18 @@ class Empresa
      * @var string
      *
      * @ORM\Column(name="nome", type="string", length=100)
+     * 
+     * @Assert\NotBlank(
+     *     message = "O preenchimento do nome é obrigatório.",
+     * )
+     * 
+     * @Assert\Length(
+     *      min = 2,
+     *      max = 100,
+     *      minMessage = "O nome precisa ter pelo menos {{ limit }} caracteres",
+     *      maxMessage = "O nome não pode ser maior que {{ limit }} caracteres"
+     * )
+     * 
      */
     private $nome;
 
@@ -33,6 +47,16 @@ class Empresa
      * @var string
      *
      * @ORM\Column(name="telefone", type="string", length=11)
+     * 
+     * @Assert\NotBlank(
+     *     message = "O preenchimento do telefone é obrigatório.",
+     * )
+     * 
+     * @MisdAssert\PhoneNumber(
+     *      defaultRegion="BR",
+     *      message = "Telefone inválido.",
+     * )
+     * 
      */
     private $telefone;
 
@@ -40,12 +64,33 @@ class Empresa
      * @var string
      *
      * @ORM\Column(name="email", type="string", length=255)
+     * 
+     * @Assert\NotBlank(
+     *     message = "O preenchimento do email é obrigatório.",
+     * )
+     * 
+     * @Assert\Email(
+     *     message = "O email '{{ value }}' não é um e-mail válido.",
+     *     checkMX = true
+     * )
+     * 
      */
     private $email;
 
     /**
      * @var string
      *
+     * @Assert\NotBlank(
+     *     message = "O preenchimento do endereço é obrigatório.",
+     * )
+     * 
+     * @Assert\Length(
+     *      min = 2,
+     *      max = 500,
+     *      minMessage = "O endereço precisa ter pelo menos {{ limit }} caracteres",
+     *      maxMessage = "O endereço não pode ser maior que {{ limit }} caracteres"
+     * )
+     * 
      * @ORM\Column(name="endereco", type="string", length=500)
      */
     private $endereco;

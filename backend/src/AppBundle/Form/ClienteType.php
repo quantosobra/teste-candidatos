@@ -2,6 +2,7 @@
 
 namespace App\AppBundle\Form;
 
+use App\AppBundle\Entity\Cliente;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -28,7 +29,7 @@ class ClienteType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => App\AppBundle\Entity\Cliente::class
+            'data_class' => Cliente::class
         ));
     }
 

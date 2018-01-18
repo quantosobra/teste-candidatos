@@ -5,3 +5,7 @@ empresa:
 cliente:
     type: rest
     resource: App\AppBundle\Controller\ClienteController
+
+venda:
+    type: rest
+    resource: App\AppBundle\Controller\VendaController

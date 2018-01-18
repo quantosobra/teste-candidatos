@@ -48,16 +48,21 @@ const Router = EmberRouter.extend({
 });
 
 // Realiza o mapeamento de todas as rotas da aplicação
-Router.map(function() {
-    this.route('empresas', {}, function() {
+Router.map(function () {
+    this.route('empresas', {}, function () {
         this.route('nova', {});
-        this.route('editar', {path: '/editar/:id'});
-        this.route('excluir', {path: '/excluir/:id'});
+        this.route('editar', { path: '/editar/:id' });
+        this.route('excluir', { path: '/excluir/:id' });
     });
-    this.route('clientes', {}, function() {
+    this.route('clientes', {}, function () {
         this.route('novo', {});
-        this.route('editar', {path: '/editar/:id'});
-        this.route('excluir', {path: '/excluir/:id'});
+        this.route('editar', { path: '/editar/:id' });
+        this.route('excluir', { path: '/excluir/:id' });
+    });
+    this.route('vendas', {}, function () {
+        this.route('nova', {});
+        this.route('editar', { path: '/editar/:id' });
+        this.route('excluir', { path: '/excluir/:id' });
     });
 });
 

@@ -1,40 +1,90 @@
 <div class="panel panel-info">
     <div class="panel-heading">
         <h2>
-            {{#link-to 'empresas' active=false}}<i class="fa fa-angle-left"></i>{{/link-to}}
+            {{#link-to 'empresas' active=false}}
+            <i class="fa fa-angle-left"></i>{{/link-to}}
             <i class="fa fa-building-o"></i>
-            {{#if model.isNew}}
-                Nova Empresa
-            {{else}}
-                Editar Empresa
-            {{/if}}
+            {{#if model.isNew}} Nova Empresa {{else}} Editar Empresa {{/if}}
         </h2>
     </div>
     <div class="panel-body">
-		{{#bs-form model=model action="submit" as |form|}}
-            <div class="row">
-				<div class="col-sm-12">
-					{{form.element label="Nome" placeholder="Nome" property="nome"}}
-				</div>
+        {{#bs-form model=model action="submit" as |form|}}
+        <div class="row">
+            <div class="col-sm-12">
+                {{form.element label="Nome" placeholder="Nome" property="nome"}}
             </div>
-            <div class="row">
-				<div class="col-sm-6">
-					{{form.element label="Telefone" placeholder="Telefone" property="telefone"}}
-				</div>
-				<div class="col-sm-6">
-					{{form.element label="E-mail" placeholder="E-mail" property="email"}}
-				</div>
+            <div class="col-sm-12">
+                {{#if serverErrors.nome}}
+                <div class="form-group has-error">
+                    {{#each serverErrors.nome.errors as |errorMessage|}}
+                    <label class="control-label" for="inputError">{{errorMessage}}</label>
+                    <br/> {{/each}}
+                </div>
+                {{/if}}
             </div>
-            <div class="row">
-				<div class="col-sm-12">
-                    {{form.element label="Endereço" placeholder="Endereço" property="endereco"}}
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="row">
+                    <div class="col-sm-12">
+                        {{{form.element label="Telefone" placeholder="Telefone" property="telefone"}}}
+                    </div>
+                    <div class="col-sm-12">
+                        {{#if serverErrors.telefone}}
+                        <div class="form-group has-error">
+                            {{#each serverErrors.telefone.errors as |errorMessage|}}
+                            <label class="control-label" for="inputError">{{errorMessage}}</label>
+                            <br/> {{/each}}
+                        </div>
+                        {{/if}}
+                    </div>
                 </div>
             </div>
-            <div class="row">
-				<div class="col-sm-12">
-                    {{form.element controlType="textarea" label="Descrição" placeholder="Descrição" property="descricao"}}
+            <div class="col-sm-6">
+                <div class="row">
+                    <div class="col-sm-12">
+                        {{form.element label="E-mail" placeholder="E-mail" property="email"}}
+                    </div>
+                    <div class="col-sm-12">
+                        {{#if serverErrors.email}}
+                        <div class="form-group has-error">
+                            {{#each serverErrors.email.errors as |errorMessage|}}
+                            <label class="control-label" for="inputError">{{errorMessage}}</label>
+                            <br/> {{/each}}
+                        </div>
+                        {{/if}}
+                    </div>
                 </div>
             </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                {{form.element label="Endereço" placeholder="Endereço" property="endereco"}}
+            </div>
+            <div class="col-sm-12">
+                {{#if serverErrors.endereco}}
+                <div class="form-group has-error">
+                    {{#each serverErrors.endereco.errors as |errorMessage|}}
+                    <label class="control-label" for="inputError">{{errorMessage}}</label>
+                    <br/> {{/each}}
+                </div>
+                {{/if}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                {{form.element controlType="textarea" label="Descrição" placeholder="Descrição" property="descricao"}}
+            </div>
+            <div class="col-sm-12">
+                {{#if serverErrors.descricao}}
+                <div class="form-group has-error">
+                    {{#each serverErrors.descricao.errors as |errorMessage|}}
+                    <label class="control-label" for="inputError">{{errorMessage}}</label>
+                    <br/> {{/each}}
+                </div>
+                {{/if}}
+            </div>
+        </div>
         {{/bs-form}}
     </div>
     <div class="panel-footer">

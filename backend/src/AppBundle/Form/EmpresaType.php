@@ -2,6 +2,7 @@
 
 namespace App\AppBundle\Form;
 
+use App\AppBundle\Entity\Empresa;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -29,7 +30,7 @@ class EmpresaType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => App\AppBundle\Entity\Empresa::class
+            'data_class' => Empresa::class
         ));
     }
 
